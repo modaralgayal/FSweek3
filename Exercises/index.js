@@ -22,7 +22,9 @@ const errorHandler = (error, request, response, next) => {
   if (error.name === 'CastError') {
     return response.status(400).send({ error: 'malformatted id' })
   } else if (error.name === 'ValidationError') 
-    {return response.status(400).json({ error: error.message })
+    {
+      return response.status(400).json({ error: error.message
+    })
   }
 
   next(error)
@@ -42,6 +44,7 @@ let isMongooseConnected = false
 const connectToDatabase = () => {
   if (!isMongooseConnected) {
     mongoose.set('strictQuery', false);
+    const url = process.env.MONGODB_URI;
     mongoose.connect(url);
     isMongooseConnected = true;
   }
