@@ -21,9 +21,9 @@ const errorHandler = (error, request, response, next) => {
 
   if (error.name === 'CastError') {
     return response.status(400).send({ error: 'malformatted id' })
-  } else if (error.name === 'ValidationError') 
-    {
-      return response.status(400).json({ error: error.message
+  } else if (error.name === 'ValidationError')
+  {
+    return response.status(400).json({ error: error.message
     })
   }
 
@@ -43,15 +43,15 @@ let isMongooseConnected = false
 
 const connectToDatabase = () => {
   if (!isMongooseConnected) {
-    mongoose.set('strictQuery', false);
-    const url = process.env.MONGODB_URI;
-    mongoose.connect(url);
-    isMongooseConnected = true;
+    mongoose.set('strictQuery', false)
+    const url = process.env.MONGODB_URI
+    mongoose.connect(url)
+    isMongooseConnected = true
   }
-};
+}
 
-morgan.token('body', (req) => JSON.stringify(req.body));
-app.use(morgan(":method :url :status :response-time ms - :body"))
+morgan.token('body', (req) => JSON.stringify(req.body))
+app.use(morgan(':method :url :status :response-time ms - :body'))
 
 
 app.get('/api/persons', (request, response) => {
@@ -62,20 +62,20 @@ app.get('/api/persons', (request, response) => {
 
 app.get('/info', (request, response) => {
   Person.countDocuments({})
-  .then(count => {
-    const today = new Date()
-    const options = {
-      weekday: 'short',
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric',
-      hour: 'numeric',
-      minute: 'numeric',
-      second: 'numeric',
-      timeZoneName: 'long'
-    }
-      const formattedDateTime = today.toLocaleString('en-US', options);
-      console.log(formattedDateTime);
+    .then(count => {
+      const today = new Date()
+      const options = {
+        weekday: 'short',
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+        second: 'numeric',
+        timeZoneName: 'long'
+      }
+      const formattedDateTime = today.toLocaleString('en-US', options)
+      console.log(formattedDateTime)
 
       response.send(`
             <div>
@@ -85,8 +85,8 @@ app.get('/info', (request, response) => {
         `)
     })
 
-  })
-  
+})
+
 app.get('/api/persons/:id', (request, response, next) => {
   Person.findById(request.params.id)
     .then(person => {
@@ -108,12 +108,12 @@ app.delete('/api/persons/:id', (request, response, next) => {
 })
 
 app.post('/api/persons', (request, response, next) => {
-  const body = request.body;
+  const body = request.body
 
   if (!body.name || !body.number) {
     return response.status(400).json({
       error: 'Name or number missing'
-    });
+    })
   }
 
   Person.findOne({ name: body.name })
@@ -137,7 +137,7 @@ app.post('/api/persons', (request, response, next) => {
         response.json(savedPerson)
       }).catch(error => next(error))
     })
-    
+
 })
 
 
@@ -147,8 +147,8 @@ app.put('/api/persons/:id', (request, response, next) => {
 
 
   Person.findByIdAndUpdate(request.params.id,
-    { name }, 
-    { new: true , runValidators: true, context: 'query'})
+    { name },
+    { new: true , runValidators: true, context: 'query' })
     .then(updatedName => {
       response.json(updatedName)
     })

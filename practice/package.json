@@ -10,9 +10,10 @@
     "build:ui": "rm -rf build && cd ../part2-notes/ && npm run build && cp -r build ../notes-backend",
     "deploy": "fly deploy",
     "deploy:full": "npm run build:ui && npm run deploy",
-    "logs:prod": "fly logs"
+    "logs:prod": "fly logs",
+    "lint": "eslint ."
   },
-  "author": "Matti Luukkainen",
+  "author": "Mudar Algayal",
   "license": "MIT",
   "dependencies": {
     "cors": "^2.8.5",
@@ -22,6 +23,7 @@
   },
   "devDependencies": {
     "@types/node": "^20.4.2",
+    "eslint": "^8.45.0",
     "nodemon": "^2.0.22"
   },
   "proxy": "http://localhost:3001"

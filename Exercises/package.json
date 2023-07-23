@@ -6,7 +6,9 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "test": "echo \\\"Error: no test specified\\\" && exit 1"
+    "test": "echo \\\"Error: no test specified\\\" && exit 1",
+    "lint": "eslint ."
+
   },
   "author": "Mudar Algayal",
   "license": "MIT",
@@ -19,6 +21,7 @@
   },
   "devDependencies": {
     "@flydotio/dockerfile": "^0.3.3",
+    "eslint": "^8.45.0",
     "nodemon": "^2.0.22"
   },
   "proxy": "http://localhost:3001"
