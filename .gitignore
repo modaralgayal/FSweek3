@@ -1,4 +1,4 @@
 practice/.env
 .gitignore
-./practice
-./mongoDBpractice
+/practice
+/mongoDBpractice
